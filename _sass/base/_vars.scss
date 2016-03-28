@@ -1,0 +1,46 @@
+//——————————————————————————————————————————————————//
+// Variables
+//——————————————————————————————————————————————————//
+
+// Colours
+//——————————————————————————————————————————————————
+$base:                      #666;
+$white:                     #FCFCFC;
+$leading:                   #F1C40F;
+$sections:                  $white;
+$link:                      #4A4A4A;
+$blue:                      #69D2E7;
+$green:                     #00CF9D;
+$pink:                      #EE6E9D;
+
+// Visuals
+//——————————————————————————————————————————————————
+$base-border-radius:        3px;
+
+$border-width:              3px;
+
+$transition-time:           .25s;
+$transition-style:          ease-out;
+$transition-bezier:         cubic-bezier(.6,-0.28,.53,1.36);
+
+// Typography
+//——————————————————————————————————————————————————
+$font-header:               Abril Fatface, serif;
+$font-body:                 Source Sans Pro, Helvetica, Arial, sans-serif;
+$base-font-size:            14px;
+$base-line-height:          1.5;
+$headers:                   (
+                              h1: ($base-font-size * 4),
+                              h2: 72px,
+                              h3: 14px,
+                              h4: 16px,
+                              h5: ($base-font-size * 1),
+                              h6: ($base-font-size * 1),
+                            );
+
+// Grid
+//——————————————————————————————————————————————————
+$columns:                   12;
+$containers:                (xs: 100%, sm: 640px, md: 960px, lg: 1160px);
+$gutters:                   (xs: 60px, sm: 15px, md: 15px, lg: 30px);
+$breakpoints:               (xs: 0, sm: 640px, md: 960px, lg: 1160px);
