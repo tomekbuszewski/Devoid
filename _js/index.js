@@ -85,7 +85,7 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _HomePage2.default },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/post/:id(/:slug)', component: _Post2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/:y/:m/:d/:slug', component: _Post2.default })
 	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _HomePage2.default })
 	), app);
@@ -25034,25 +25034,29 @@
 	      if (this.state.loaded) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'container' },
 	          _react2.default.createElement(_Header2.default, { title: 'Nazwa strony' }),
 	          _react2.default.createElement(
-	            'main',
-	            null,
-	            this.props.children || this.tempData.map(function (i) {
-	              return _react2.default.createElement(_SmallPost2.default, {
-	                id: i['id'],
-	                key: i['id'],
-	                title: i['title']['rendered'],
-	                slug: i['slug'],
-	                published: i['date']
-	              });
-	            })
-	          ),
-	          _react2.default.createElement(
-	            'aside',
-	            null,
-	            _react2.default.createElement(_Categories2.default, null)
+	            'div',
+	            { className: 'columns' },
+	            _react2.default.createElement(
+	              'main',
+	              { className: 'col-lg-8' },
+	              this.props.children || this.tempData.map(function (i) {
+	                return _react2.default.createElement(_SmallPost2.default, {
+	                  id: i['id'],
+	                  key: i['id'],
+	                  title: i['title']['rendered'],
+	                  slug: i['slug'],
+	                  published: i['date']
+	                });
+	              })
+	            ),
+	            _react2.default.createElement(
+	              'aside',
+	              { className: 'col-lg-3' },
+	              _react2.default.createElement(_Categories2.default, null)
+	            )
 	          )
 	        );
 	      } else {
@@ -25216,8 +25220,18 @@
 	  }
 
 	  _createClass(SmallPost, [{
+	    key: 'prepareLink',
+	    value: function prepareLink() {
+	      var date = this.props.published.substring(0, 10).split('-');
+	      var link = '/' + date[0] + '/' + date[1] + '/' + date[2] + '/' + this.props.slug;
+
+	      return link;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      this.prepareLink();
+
 	      return _react2.default.createElement(
 	        'article',
 	        { id: this.props.key },
@@ -25226,7 +25240,7 @@
 	          null,
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: '/post/' + this.props.id + '/' + this.props.slug },
+	            { to: this.prepareLink() },
 	            this.props.title
 	          )
 	        ),
@@ -39240,7 +39254,7 @@
 
 	    _this.state = { loaded: false };
 
-	    if (_this.props.params.id) {
+	    if (_this.props.params.slug) {
 	      _this.fetchPost();
 	    }
 	    return _this;
@@ -39251,7 +39265,7 @@
 	    value: function fetchPost() {
 	      var _this2 = this;
 
-	      var url = '/wp-json/wp/v2/posts/' + this.props.params.id;
+	      var url = '/wp-json/wp/v2/posts?slug=' + this.props.params.slug;
 	      var req = new XMLHttpRequest();
 
 	      req.open('get', url, true);
@@ -39272,7 +39286,7 @@
 	    value: function renderPost() {
 	      var _this3 = this;
 
-	      this.postData = JSON.parse(this.postData);
+	      this.postData = JSON.parse(this.postData)[0];
 
 	      this.setState({ loaded: true }, function () {
 	        document.title = _this3.postData.title.rendered + ' - Blog';
@@ -39297,7 +39311,7 @@
 	          ),
 	          _react2.default.createElement('div', { className: 'post__content', dangerouslySetInnerHTML: { __html: this.postData.content.rendered } })
 	        );
-	      } else if (!this.props.params.id) {
+	      } else if (!this.props.params.slug) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,

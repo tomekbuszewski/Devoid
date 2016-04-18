@@ -10,13 +10,13 @@ export default class Post extends React.Component {
 
     this.state = { loaded: false }
 
-    if(this.props.params.id) {
+    if(this.props.params.slug) {
       this.fetchPost();
     }
   }
 
   fetchPost() {
-    const url = '/wp-json/wp/v2/posts/' + this.props.params.id;
+    const url = '/wp-json/wp/v2/posts?slug=' + this.props.params.slug;
     const req = new XMLHttpRequest();
 
     req.open('get', url, true);
@@ -34,7 +34,7 @@ export default class Post extends React.Component {
   }
 
   renderPost() {
-    this.postData = JSON.parse(this.postData);
+    this.postData = JSON.parse(this.postData)[0];
 
     this.setState({ loaded: true }, () => {
       document.title = this.postData.title.rendered + ' - Blog';
@@ -52,7 +52,7 @@ export default class Post extends React.Component {
           <div className="post__content" dangerouslySetInnerHTML={{__html: this.postData.content.rendered}}></div>
         </article>
       )
-    } else if(!this.props.params.id) {
+    } else if(!this.props.params.slug) {
       return (
         <div>No post id specified</div>
       )
