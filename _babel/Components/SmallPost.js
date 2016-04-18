@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Time from 'react-time';
 
 export default class SmallPost extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class SmallPost extends React.Component {
         <h3>
           <Link to={'/post/' + this.props.id + '/' + this.props.slug}>{this.props.title}</Link>
         </h3>
-        <time>{this.props.published}</time>
+        <Time value={this.props.published} format="DD.MM.YYYY, HH:mm" />
       </article>
     );
   }

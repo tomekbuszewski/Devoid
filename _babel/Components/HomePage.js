@@ -43,21 +43,25 @@ export default class HomePage extends React.Component {
 
   render() {
     document.title = 'Blog';
-    
+
     if(this.state.loaded) {
       return (
-        this.props.children ||
         <div>
-          {this.tempData.map((i) => {
-            return (
-              <SmallPost
-                id={i['id']}
-                key={i['id']}
-                title={i['title']['rendered']}
-                slug={i['slug']}
-                published={i['date']}
-              />)
-          })}
+          <header>Nagłówek</header>
+          <main>
+            {this.props.children ||
+            this.tempData.map((i) => {
+              return (
+                <SmallPost
+                  id={i['id']}
+                  key={i['id']}
+                  title={i['title']['rendered']}
+                  slug={i['slug']}
+                  published={i['date']}
+                />)
+            })}
+          </main>
+          <aside>Kategorie</aside>
         </div>
       );
     } else {

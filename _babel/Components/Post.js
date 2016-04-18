@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import Time from 'react-time';
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -44,7 +45,10 @@ export default class Post extends React.Component {
     if(this.state.loaded) {
       return (
         <article>
-          <header><h1>{this.postData.title.rendered}</h1></header>
+          <header>
+            <h1>{this.postData.title.rendered}</h1>
+            <Time value={this.postData.date} format="DD.MM.YYYY, HH:mm" />
+          </header>
           <div className="post__content" dangerouslySetInnerHTML={{__html: this.postData.content.rendered}}></div>
         </article>
       )

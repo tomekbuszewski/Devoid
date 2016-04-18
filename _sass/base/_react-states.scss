@@ -1,0 +1,14 @@
+.content {
+  position: relative;
+  transition: .15s opacity, .15s transform;
+  opacity: 0;
+  transform: translateY(-20px);
+
+  &--not-loaded {
+  }
+
+  &--is-loaded {
+    opacity: 1;
+    transform: none;
+  }
+}
