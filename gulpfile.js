@@ -13,7 +13,7 @@ var paths = {
   cssSeer: 'seer',
   cssTheme: 'style',
   cssCompiledFile: 'style.css',
-  js: './_babel/**.js',
+  js: './_babel/**/**.js',
   jsProd: './_js',
   jsProdFile: './_js/index.js',
   php: './**.php'
