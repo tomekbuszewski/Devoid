@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PageHeader from './Header';
+import Categories from './Categories';
 import SmallPost from './SmallPost';
 
 export default class HomePage extends React.Component {
@@ -47,7 +49,7 @@ export default class HomePage extends React.Component {
     if(this.state.loaded) {
       return (
         <div>
-          <header>Nagłówek</header>
+          <PageHeader title="Nazwa strony" />
           <main>
             {this.props.children ||
             this.tempData.map((i) => {
@@ -61,7 +63,9 @@ export default class HomePage extends React.Component {
                 />)
             })}
           </main>
-          <aside>Kategorie</aside>
+          <aside>
+            <Categories />
+          </aside>
         </div>
       );
     } else {
