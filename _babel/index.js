@@ -14,7 +14,7 @@ import Post from './Components/Post';
 render((
   <Router history={browserHistory}>
     <Route path="/" component={HomePage}>
-      <Route path="/post/:id" component={Post} />
+      <Route path="/post/:id(/:slug)" component={Post} />
     </Route>
     <Route path="*" component={HomePage} />
   </Router>

@@ -10,7 +10,7 @@ export default class SmallPost extends React.Component {
     return (
       <article id={this.props.key}>
         <h3>
-          <Link to={'/post/' + this.props.id}>{this.props.title}</Link>
+          <Link to={'/post/' + this.props.id + '/' + this.props.slug}>{this.props.title}</Link>
         </h3>
         <time>{this.props.published}</time>
       </article>

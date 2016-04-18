@@ -85,7 +85,7 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _HomePage2.default },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/post/:id', component: _Post2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/post/:id(/:slug)', component: _Post2.default })
 	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _HomePage2.default })
 	), app);
@@ -25021,6 +25021,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      document.title = 'Blog';
+
 	      if (this.state.loaded) {
 	        return this.props.children || _react2.default.createElement(
 	          'div',
@@ -25030,6 +25032,7 @@
 	              id: i['id'],
 	              key: i['id'],
 	              title: i['title']['rendered'],
+	              slug: i['slug'],
 	              published: i['date']
 	            });
 	          })
@@ -25095,7 +25098,7 @@
 	          null,
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: '/post/' + this.props.id },
+	            { to: '/post/' + this.props.id + '/' + this.props.slug },
 	            this.props.title
 	          )
 	        ),
@@ -25181,9 +25184,13 @@
 	  }, {
 	    key: 'renderPost',
 	    value: function renderPost() {
+	      var _this3 = this;
+
 	      this.postData = JSON.parse(this.postData);
 
-	      this.setState({ loaded: true });
+	      this.setState({ loaded: true }, function () {
+	        document.title = _this3.postData.title.rendered + ' - Blog';
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -25193,10 +25200,15 @@
 	          'article',
 	          null,
 	          _react2.default.createElement(
-	            'h1',
+	            'header',
 	            null,
-	            this.postData.title.rendered
-	          )
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              this.postData.title.rendered
+	            )
+	          ),
+	          _react2.default.createElement('div', { className: 'post__content', dangerouslySetInnerHTML: { __html: this.postData.content.rendered } })
 	        );
 	      } else if (!this.props.params.id) {
 	        return _react2.default.createElement(

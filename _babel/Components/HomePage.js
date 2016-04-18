@@ -42,6 +42,8 @@ export default class HomePage extends React.Component {
   }
 
   render() {
+    document.title = 'Blog';
+    
     if(this.state.loaded) {
       return (
         this.props.children ||
@@ -52,6 +54,7 @@ export default class HomePage extends React.Component {
                 id={i['id']}
                 key={i['id']}
                 title={i['title']['rendered']}
+                slug={i['slug']}
                 published={i['date']}
               />)
           })}
