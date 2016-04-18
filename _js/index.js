@@ -81,12 +81,13 @@
 	//---------------------------------------------------
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRouter.Router,
-	  { history: _reactRouter.hashHistory },
+	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _HomePage2.default },
 	    _react2.default.createElement(_reactRouter.Route, { path: '/post/:id', component: _Post2.default })
-	  )
+	  ),
+	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _HomePage2.default })
 	), app);
 
 /***/ },
@@ -24992,7 +24993,7 @@
 	    value: function fetchPosts() {
 	      var _this2 = this;
 
-	      var url = 'wp-json/wp/v2/posts';
+	      var url = '/wp-json/wp/v2/posts';
 	      var req = new XMLHttpRequest();
 
 	      req.open('get', url, true);
@@ -25161,7 +25162,7 @@
 	    value: function fetchPost() {
 	      var _this2 = this;
 
-	      var url = 'wp-json/wp/v2/posts/' + this.props.params.id;
+	      var url = '/wp-json/wp/v2/posts/' + this.props.params.id;
 	      var req = new XMLHttpRequest();
 
 	      req.open('get', url, true);
@@ -25196,6 +25197,12 @@
 	            null,
 	            this.postData.title.rendered
 	          )
+	        );
+	      } else if (!this.props.params.id) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'No post id specified'
 	        );
 	      } else {
 	        return _react2.default.createElement(

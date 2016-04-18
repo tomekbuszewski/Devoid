@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Route, Router, hashHistory } from 'react-router';
+import { Route, Router, browserHistory } from 'react-router';
 
 const app = document.getElementById('app');
 
@@ -12,9 +12,10 @@ import Post from './Components/Post';
 // Router config
 //---------------------------------------------------
 render((
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={HomePage}>
       <Route path="/post/:id" component={Post} />
     </Route>
+    <Route path="*" component={HomePage} />
   </Router>
 ), app);

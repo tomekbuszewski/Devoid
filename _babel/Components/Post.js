@@ -15,7 +15,7 @@ export default class Post extends React.Component {
   }
 
   fetchPost() {
-    const url = 'wp-json/wp/v2/posts/' + this.props.params.id;
+    const url = '/wp-json/wp/v2/posts/' + this.props.params.id;
     const req = new XMLHttpRequest();
 
     req.open('get', url, true);

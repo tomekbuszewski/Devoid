@@ -16,7 +16,7 @@ export default class HomePage extends React.Component {
   }
 
   fetchPosts() {
-    const url = 'wp-json/wp/v2/posts';
+    const url = '/wp-json/wp/v2/posts';
     const req = new XMLHttpRequest();
 
     req.open('get', url, true);
