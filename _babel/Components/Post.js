@@ -3,39 +3,23 @@ import { render } from 'react-dom';
 import Time from 'react-time';
 import Categories from './Categories';
 
+import Fetcher from '../Tools/XML';
+
 export default class Post extends React.Component {
   constructor(props) {
     super(props);
 
+    this.renderPost = this.renderPost.bind(this);
     this.postData = null;
-
     this.state = { loaded: false }
 
     if(this.props.params.slug) {
-      this.fetchPost();
+      new Fetcher('posts?slug='+this.props.params.slug, this.renderPost);
     }
   }
 
-  fetchPost() {
-    const url = '/wp-json/wp/v2/posts?slug=' + this.props.params.slug;
-    const req = new XMLHttpRequest();
-
-    req.open('get', url, true);
-    req.onreadystatechange = () => {
-      if(req.readyState === 4) {
-        if(req.status === 200) {
-          this.postData = req.responseText;
-          this.renderPost();
-        } else {
-          throw new Error();
-        }
-      }
-    }
-    req.send();
-  }
-
-  renderPost() {
-    this.postData = JSON.parse(this.postData)[0];
+  renderPost(responseText) {
+    this.postData = JSON.parse(responseText)[0];
 
     this.setState({ loaded: true }, () => {
       document.title = this.postData.title.rendered + ' - Blog';

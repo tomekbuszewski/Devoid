@@ -4,9 +4,13 @@ import PageHeader from './Header';
 import Categories from './Categories';
 import SmallPost from './SmallPost';
 
+import Fetcher from '../Tools/XML';
+
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.renderPosts = this.renderPosts.bind(this);
 
     this.state = {
       loaded: false
@@ -14,30 +18,11 @@ export default class HomePage extends React.Component {
 
     this.tempData = null;
 
-    this.fetchPosts();
+    new Fetcher('posts', this.renderPosts);
   }
 
-  fetchPosts() {
-    const url = '/wp-json/wp/v2/posts';
-    const req = new XMLHttpRequest();
-
-    req.open('get', url, true);
-    req.onreadystatechange = () => {
-      if(req.readyState === 4) {
-        if(req.status === 200) {
-          this.tempData = req.responseText;
-          this.renderPosts();
-        } else {
-          throw new Error();
-        }
-      }
-    }
-    req.send();
-  }
-
-  renderPosts() {
-    const data = this.tempData;
-    this.tempData = JSON.parse(data);
+  renderPosts(response) {
+    this.tempData = JSON.parse(response);
     this.setState({ loaded: true });
   }
 

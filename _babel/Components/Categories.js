@@ -1,39 +1,27 @@
 import React from 'react';
 
+import Fetcher from '../Tools/XML';
+
 export default class Categories extends React.Component {
   constructor(props) {
     super(props);
 
     this.categories = null;
-
     this.state = { loaded: false };
 
-    this.fetchCategories();
+    this.fetchCategories = this.fetchCategories.bind(this);
+
+    new Fetcher('categories', this.fetchCategories);
   }
 
-  fetchCategories() {
+  fetchCategories(response) {
     const cats = this.props.data;
 
-
-
-
-    const url = '/wp-json/wp/v2/categories';
-    const req = new XMLHttpRequest();
-
-    req.open('get', url, true);
-    req.onreadystatechange = () => {
-      if(req.readyState === 4) {
-        if(req.status === 200) {
-          this.categories = JSON.parse(req.responseText);
-          if(this.props.data) {
-            this.getCategories();
-          }
-        } else {
-          throw new Error();
-        }
-      }
+    this.categories = JSON.parse(response);
+    
+    if(this.props.data) {
+      this.getCategories();
     }
-    req.send();
   }
 
   getCategories() {
