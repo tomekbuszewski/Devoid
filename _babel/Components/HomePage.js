@@ -36,7 +36,7 @@ export default class HomePage extends React.Component {
           <div className="columns">
             <main className="col-lg-8">
               {this.props.children ||
-              this.tempData.map((i) => {
+              this.tempData.map(i => {
                 return (
                   <SmallPost
                     id={i['id']}

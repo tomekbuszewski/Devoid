@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Fetcher from '../Tools/XML';
+import ListItem from './ListItem';
 
 export default class Categories extends React.Component {
   constructor(props) {
@@ -22,34 +23,28 @@ export default class Categories extends React.Component {
     if(this.props.data) {
       this.getCategories();
     } else {
-      this.parseCategories();
+      this.setState({ loaded: true });
     }
   }
 
   getCategories() {
     this.categories = this.categories.filter(cat => this.props.data.indexOf(cat.id) > -1);
-    this.parseCategories();
-  }
-
-  parseCategories() {
-    this.categories.map(item => {
-      console.log(item);
-    });
+    this.setState({ loaded: true });
   }
 
   render() {
-    if(this.props.embed) {
+    if(this.state.loaded) {
       return (
-        <div>
-          Kategorie
-        </div>
-      );
+        <ul>
+        {this.categories.map(i => {
+          return (
+            <ListItem name={i.name} link={i.link} key={i.id} />
+          )
+        })}
+        </ul>
+      )
     } else {
-      return (
-        <div className="sidebar__box">
-          <h4>Kategorie</h4>
-        </div>
-      );
+      return (<div>...</div>)
     }
   }
 }
