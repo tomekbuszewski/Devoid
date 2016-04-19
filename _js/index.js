@@ -25021,9 +25021,7 @@
 	    key: 'renderPosts',
 	    value: function renderPosts() {
 	      var data = this.tempData;
-
 	      this.tempData = JSON.parse(data);
-
 	      this.setState({ loaded: true });
 	    }
 	  }, {
@@ -25131,7 +25129,7 @@
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25157,21 +25155,70 @@
 	  function Categories(props) {
 	    _classCallCheck(this, Categories);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Categories).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Categories).call(this, props));
+
+	    _this.categories = null;
+
+	    _this.state = { loaded: false };
+
+	    _this.fetchCategories();
+	    return _this;
 	  }
 
 	  _createClass(Categories, [{
-	    key: "render",
+	    key: 'fetchCategories',
+	    value: function fetchCategories() {
+	      var _this2 = this;
+
+	      var cats = this.props.data;
+
+	      var url = '/wp-json/wp/v2/categories';
+	      var req = new XMLHttpRequest();
+
+	      req.open('get', url, true);
+	      req.onreadystatechange = function () {
+	        if (req.readyState === 4) {
+	          if (req.status === 200) {
+	            _this2.categories = JSON.parse(req.responseText);
+	            if (_this2.props.data) {
+	              _this2.getCategories();
+	            }
+	          } else {
+	            throw new Error();
+	          }
+	        }
+	      };
+	      req.send();
+	    }
+	  }, {
+	    key: 'getCategories',
+	    value: function getCategories() {
+	      console.log(this.props.data);
+	      var a = this.categories.filter(function (cat) {
+	        return cat.id === 2;
+	      });
+	      console.log(a);
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "sidebar__box" },
-	        _react2.default.createElement(
-	          "h4",
+	      if (this.props.embed) {
+	        return _react2.default.createElement(
+	          'div',
 	          null,
-	          "Kategorie"
-	        )
-	      );
+	          'Kategorie'
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'sidebar__box' },
+	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Kategorie'
+	          )
+	        );
+	      }
 	    }
 	  }]);
 
@@ -39234,6 +39281,10 @@
 
 	var _reactTime2 = _interopRequireDefault(_reactTime);
 
+	var _Categories = __webpack_require__(219);
+
+	var _Categories2 = _interopRequireDefault(_Categories);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39307,7 +39358,8 @@
 	              null,
 	              this.postData.title.rendered
 	            ),
-	            _react2.default.createElement(_reactTime2.default, { value: this.postData.date, format: 'DD.MM.YYYY, HH:mm' })
+	            _react2.default.createElement(_reactTime2.default, { value: this.postData.date, format: 'DD.MM.YYYY, HH:mm' }),
+	            _react2.default.createElement(_Categories2.default, { data: this.postData.categories, embed: 'true' })
 	          ),
 	          _react2.default.createElement('div', { className: 'post__content', dangerouslySetInnerHTML: { __html: this.postData.content.rendered } })
 	        );

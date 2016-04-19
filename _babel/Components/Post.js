@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Time from 'react-time';
+import Categories from './Categories';
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ export default class Post extends React.Component {
           <header>
             <h1>{this.postData.title.rendered}</h1>
             <Time value={this.postData.date} format="DD.MM.YYYY, HH:mm" />
+            <Categories data={this.postData.categories} embed="true" />
           </header>
           <div className="post__content" dangerouslySetInnerHTML={{__html: this.postData.content.rendered}}></div>
         </article>

@@ -37,9 +37,7 @@ export default class HomePage extends React.Component {
 
   renderPosts() {
     const data = this.tempData;
-
     this.tempData = JSON.parse(data);
-
     this.setState({ loaded: true });
   }
 
@@ -61,7 +59,8 @@ export default class HomePage extends React.Component {
                     title={i['title']['rendered']}
                     slug={i['slug']}
                     published={i['date']}
-                  />)
+                  />
+                )
               })}
             </main>
             <aside className="col-lg-3">
