@@ -8,6 +8,7 @@ const app = document.getElementById('app');
 //---------------------------------------------------
 import HomePage from './Components/HomePage';
 import Post from './Components/Post';
+import FourOFour from './Components/FourOFour';
 
 // Router config
 //---------------------------------------------------
@@ -16,6 +17,6 @@ render((
     <Route path="/" component={HomePage}>
       <Route path="/:y/:m/:d/:slug" component={Post} />
     </Route>
-    <Route path="*" component={HomePage} />
+    <Route path="*" component={FourOFour} />
   </Router>
 ), app);

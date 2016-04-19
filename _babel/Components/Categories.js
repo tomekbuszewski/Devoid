@@ -18,16 +18,23 @@ export default class Categories extends React.Component {
     const cats = this.props.data;
 
     this.categories = JSON.parse(response);
-    
+
     if(this.props.data) {
       this.getCategories();
+    } else {
+      this.parseCategories();
     }
   }
 
   getCategories() {
-    console.log(this.props.data);
-    let a = this.categories.filter(cat => cat.id === 2);
-    console.log(a);
+    this.categories = this.categories.filter(cat => this.props.data.indexOf(cat.id) > -1);
+    this.parseCategories();
+  }
+
+  parseCategories() {
+    this.categories.map(item => {
+      console.log(item);
+    });
   }
 
   render() {

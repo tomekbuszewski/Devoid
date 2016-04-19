@@ -69,6 +69,10 @@
 
 	var _Post2 = _interopRequireDefault(_Post);
 
+	var _FourOFour = __webpack_require__(328);
+
+	var _FourOFour2 = _interopRequireDefault(_FourOFour);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var app = document.getElementById('app');
@@ -87,7 +91,7 @@
 	    { path: '/', component: _HomePage2.default },
 	    _react2.default.createElement(_reactRouter.Route, { path: '/:y/:m/:d/:slug', component: _Post2.default })
 	  ),
-	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _HomePage2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _FourOFour2.default })
 	), app);
 
 /***/ },
@@ -25163,16 +25167,26 @@
 
 	      if (this.props.data) {
 	        this.getCategories();
+	      } else {
+	        this.parseCategories();
 	      }
 	    }
 	  }, {
 	    key: 'getCategories',
 	    value: function getCategories() {
-	      console.log(this.props.data);
-	      var a = this.categories.filter(function (cat) {
-	        return cat.id === 2;
+	      var _this2 = this;
+
+	      this.categories = this.categories.filter(function (cat) {
+	        return _this2.props.data.indexOf(cat.id) > -1;
 	      });
-	      console.log(a);
+	      this.parseCategories();
+	    }
+	  }, {
+	    key: 'parseCategories',
+	    value: function parseCategories() {
+	      this.categories.map(function (item) {
+	        console.log(item);
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -39394,6 +39408,66 @@
 	}(_react2.default.Component);
 
 	exports.default = Post;
+
+/***/ },
+/* 328 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(160);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FourOFour = function (_React$Component) {
+	  _inherits(FourOFour, _React$Component);
+
+	  function FourOFour(props) {
+	    _classCallCheck(this, FourOFour);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(FourOFour).call(this, props));
+	  }
+
+	  _createClass(FourOFour, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          '404'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          'Wróć do strony głównej'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FourOFour;
+	}(_react2.default.Component);
+
+	exports.default = FourOFour;
 
 /***/ }
 /******/ ]);
