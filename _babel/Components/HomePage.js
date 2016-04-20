@@ -1,7 +1,8 @@
 import React from 'react';
 
-import PageHeader from './Header';
-import Categories from './Categories';
+import PageHeader from './Layout/Header';
+import Sidebar from './Layout/Sidebar';
+
 import SmallPost from './SmallPost';
 
 import Fetcher from '../Tools/XML';
@@ -49,7 +50,7 @@ export default class HomePage extends React.Component {
               })}
             </main>
             <aside className="col-lg-3">
-              <Categories />
+              <Sidebar />
             </aside>
           </div>
         </div>

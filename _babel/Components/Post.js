@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Time from 'react-time';
-import Categories from './Categories';
+import Categories from './Lists/Categories';
 
 import Fetcher from '../Tools/XML';
 

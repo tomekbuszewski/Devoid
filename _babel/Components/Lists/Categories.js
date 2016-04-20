@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Fetcher from '../Tools/XML';
+import Fetcher from '../../Tools/XML';
 import ListItem from './ListItem';
 
 export default class Categories extends React.Component {
@@ -12,7 +12,9 @@ export default class Categories extends React.Component {
 
     this.fetchCategories = this.fetchCategories.bind(this);
 
-    new Fetcher('categories', this.fetchCategories);
+    this.type = this.props.type ? this.props.type : 'categories';
+
+    new Fetcher(this.type, this.fetchCategories);
   }
 
   fetchCategories(response) {
