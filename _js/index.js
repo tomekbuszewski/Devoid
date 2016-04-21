@@ -25064,7 +25064,7 @@
 /* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25075,6 +25075,8 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(160);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25094,15 +25096,19 @@
 	  }
 
 	  _createClass(PageHeader, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "header",
-	        { className: "site-header" },
+	        'header',
+	        { className: 'site-header' },
 	        _react2.default.createElement(
-	          "h1",
+	          'h1',
 	          null,
-	          this.props.title
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            this.props.title
+	          )
 	        )
 	      );
 	    }
