@@ -12,14 +12,25 @@ import FourOFour from './Components/FourOFour';
 
 import Archives from './Components/Archives/Archives';
 
+const enter = () => { console.log('enter'); }
+const change = () => { console.log('change'); }
+
 // Router config
 //---------------------------------------------------
 render((
   <Router history={browserHistory}>
     <Route path="/" component={HomePage}>
       <Route path="/:y/:m/:d/:slug" component={Post} />
-      <Route path="/category/:slug" component={Archives} />
-      <Route path="/tag/:slug" component={Archives} />
+      <Route path="/category/:slug"
+        component={Archives}
+        onEnter={ enter }
+        onChange={ change }
+      />
+      <Route path="/tag/:slug"
+        component={Archives}
+        onEnter={ enter }
+        onChange={ change }
+      />
     </Route>
     <Route path="*" component={FourOFour} />
   </Router>

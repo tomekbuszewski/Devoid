@@ -25,13 +25,13 @@ $transition-bezier:         cubic-bezier(.6,-0.28,.53,1.36);
 
 // Typography
 //——————————————————————————————————————————————————
-$font-header:               Abril Fatface, serif;
-$font-body:                 Source Sans Pro, Helvetica, Arial, sans-serif;
+$font-header:               Source Sans Pro, Helvetica, Arial, sans-serif;
+$font-body:                 $font-header;
 $base-font-size:            14px;
 $base-line-height:          1.5;
 $headers:                   (
-                              h1: ($base-font-size * 4),
-                              h2: 72px,
+                              h1: 34px,
+                              h2: 32px,
                               h3: 14px,
                               h4: 16px,
                               h5: ($base-font-size * 1),

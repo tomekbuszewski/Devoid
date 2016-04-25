@@ -4,12 +4,17 @@ import { Link } from 'react-router';
 export default class ListItem extends React.Component {
   constructor(props) {
     super(props);
+
+    if(this.props.link) {
+      // console.log(window.location.host);
+      this.link = this.props.link.split(window.location.host).pop();
+    }
   }
 
   render() {
-    if(this.props.link) {
+    if(this.link) {
       return (
-        <li><Link to={this.props.link}>{this.props.name}</Link></li>
+        <li><Link to={this.link}>{this.props.name}</Link></li>
       )
     } else {
       return (

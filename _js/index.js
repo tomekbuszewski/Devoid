@@ -85,6 +85,13 @@
 	//---------------------------------------------------
 
 
+	var enter = function enter() {
+	  console.log('enter');
+	};
+	var change = function change() {
+	  console.log('change');
+	};
+
 	// Router config
 	//---------------------------------------------------
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -94,8 +101,16 @@
 	    _reactRouter.Route,
 	    { path: '/', component: _HomePage2.default },
 	    _react2.default.createElement(_reactRouter.Route, { path: '/:y/:m/:d/:slug', component: _Post2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/category/:slug', component: _Archives2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/tag/:slug', component: _Archives2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/category/:slug',
+	      component: _Archives2.default,
+	      onEnter: enter,
+	      onChange: change
+	    }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/tag/:slug',
+	      component: _Archives2.default,
+	      onEnter: enter,
+	      onChange: change
+	    })
 	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _FourOFour2.default })
 	), app);
@@ -25374,19 +25389,25 @@
 	  function ListItem(props) {
 	    _classCallCheck(this, ListItem);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ListItem).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ListItem).call(this, props));
+
+	    if (_this.props.link) {
+	      // console.log(window.location.host);
+	      _this.link = _this.props.link.split(window.location.host).pop();
+	    }
+	    return _this;
 	  }
 
 	  _createClass(ListItem, [{
 	    key: 'render',
 	    value: function render() {
-	      if (this.props.link) {
+	      if (this.link) {
 	        return _react2.default.createElement(
 	          'li',
 	          null,
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: this.props.link },
+	            { to: this.link },
 	            this.props.name
 	          )
 	        );
@@ -39621,6 +39642,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _SmallPost = __webpack_require__(223);
+
+	var _SmallPost2 = _interopRequireDefault(_SmallPost);
+
+	var _XML = __webpack_require__(221);
+
+	var _XML2 = _interopRequireDefault(_XML);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39637,18 +39666,62 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Archives).call(this, props));
 
-	    console.log(_this.props.params);
+	    _this.tempData = null;
+
+	    _this.state = { loaded: false };
+
+	    _this.fetchContent = _this.fetchContent.bind(_this);
+	    var link = 'posts?filter[' + _this.determineLocation() + ']=' + _this.props.params.slug;
+	    new _XML2.default(link, _this.fetchContent);
 	    return _this;
 	  }
 
 	  _createClass(Archives, [{
+	    key: 'determineLocation',
+	    value: function determineLocation() {
+	      var currentUrl = location.pathname;
+
+	      if (currentUrl.indexOf('/category/') > -1) {
+	        return 'category_name';
+	      } else if (currentUrl.indexOf('/tag/') > -1) {
+	        return 'tag';
+	      }
+	    }
+	  }, {
+	    key: 'method',
+	    value: function method() {
+	      alert('rejecter');
+	    }
+	  }, {
+	    key: 'fetchContent',
+	    value: function fetchContent(response) {
+	      this.tempData = JSON.parse(response);
+	      this.setState({ loaded: true });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        '...'
-	      );
+	      if (this.state.loaded) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          this.tempData.map(function (i) {
+	            return _react2.default.createElement(_SmallPost2.default, {
+	              id: i['id'],
+	              key: i['id'],
+	              title: i['title']['rendered'],
+	              slug: i['slug'],
+	              published: i['date']
+	            });
+	          })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Loading...'
+	        );
+	      }
 	    }
 	  }]);
 
